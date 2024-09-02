@@ -1,35 +1,41 @@
 <?php
 
+// Set headers for CORS
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
-// Database configuration
-    define('DB_HOST', 'localhost');
-    define('DB_USER', 'root');
-    define('DB_PASSWORD', '');
-    define('DB_NAME', 'todo_app');
-// Create connection
-    $conn = new mysqli(DB_HOST, DB_USER,DB_PASSWORD,DB_NAME);
+class Database {
 
-// Create connection
-// if error
-    if ($conn->connect_error) {
-        $response = array(
-            'success' => 'false',
-            'message' => 'Database connection failed: ' . $conn->connect_error
-        );
+    public function getConnection() {
+        // Database configuration
+        define('DB_HOST', 'localhost');
+        define('DB_USER', 'root');
+        define('DB_PASSWORD', '');
+        define('DB_NAME', 'todo_app');
         
-        echo json_encode($response);
-        exit();
+        // Create connection
+        $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+
+        // if Error Check connection
+        if ($conn->connect_error) {
+            $response = array(
+                'success' => 'false',
+                'message' => 'Database connection failed: ' . $conn->connect_error
+            );
+            echo json_encode($response);
+            exit();
+        }
+
+        // Return connection if successful
+        return $conn;
     }
+}
 
-// if success
-    $response = array(
-        'success' => 'true',
-        'message' => 'Database connection successful tangina'
-    );
-
-    echo json_encode($response);
-
+// If Success
+$response = array(
+    'success' => 'true',
+    'message' => 'Database connection successful'
+);
+echo json_encode($response);
 ?>
