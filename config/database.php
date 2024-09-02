@@ -1,4 +1,9 @@
 <?php
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+
 // Database configuration
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
@@ -22,7 +27,7 @@
 // if success
     $response = array(
         'success' => 'true',
-        'message' => 'Database connection successful'
+        'message' => 'Database connection successful tangina'
     );
 
     echo json_encode($response);
