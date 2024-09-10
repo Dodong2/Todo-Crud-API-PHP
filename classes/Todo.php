@@ -52,21 +52,27 @@ class Todo {
         return false;
     }
 
-    //delele 
-    public function delele() {
-        $query= "DELETE FROM " . $this->table_name . " WHERE id = :id";
+    //delete
+    public function delete() {
+        // SQL query to delete a todo by id
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+
+        // Prepare the query
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(":id", $this->id);
+        // Sanitize and bind the id parameter
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $stmt->bind_param('i', $this->id);
 
-        if($stmt->execute()) {
+        // Execute the query
+        if ($stmt->execute()) {
             return true;
         }
 
         return false;
     }
-        
     
 }
+
 
 ?>
